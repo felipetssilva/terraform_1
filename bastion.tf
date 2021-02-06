@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "rs" {
 
 resource "azurerm_virtual_network" "vn" {
   name                = "vnBastion"
-  address_space       = ["10.10.0.0/16"]
+  address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rs.location
   resource_group_name = azurerm_resource_group.rs.name
 }
@@ -61,7 +61,7 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_windows_virtual_machine" "vm1" {
- // depends_on = [azurerm_network_interface.nic]
+  // depends_on = [azurerm_network_interface.nic]
 
   name                = "winVM"
   resource_group_name = azurerm_resource_group.rs.name
@@ -111,7 +111,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsga" {
-  subnet_id                 = azurerm_subnet.snForBastian.id
+  subnet_id                 = azurerm_subnet.sn.id
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
 
